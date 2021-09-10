@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class DemoQaCheckBoxResult extends AbstractPageObj {
+public class CheckBoxResult extends AbstractPageObj {
 
     /*
         locator used to interact with the checkbox web at https://demoqa.com/checkbox
@@ -57,7 +57,7 @@ public class DemoQaCheckBoxResult extends AbstractPageObj {
 
     public static final By resultText = By.cssSelector("#result span.text-success");
 
-    public DemoQaCheckBoxResult(WebDriver driver) {
+    public CheckBoxResult(WebDriver driver) {
         super(driver);
     }
 

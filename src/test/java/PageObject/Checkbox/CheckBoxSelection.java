@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class DemoQaCheckBoxSelection extends AbstractPageObj {
+public class CheckBoxSelection extends AbstractPageObj {
 
     public static final By mainHeader = By.className("main-header");
     public static final By homeToggle = By.cssSelector("button[title=\"Toggle\"]");
@@ -13,7 +13,7 @@ public class DemoQaCheckBoxSelection extends AbstractPageObj {
     public static final By collapseAll = By.cssSelector("button[title=\"Collapse all\"]");
     public static final By selectAll = By.cssSelector("label[for=\"tree-node-home\"]");
 
-    public DemoQaCheckBoxSelection(WebDriver driver) {
+    public CheckBoxSelection(WebDriver driver) {
         super(driver);
     }
 

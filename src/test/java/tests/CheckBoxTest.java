@@ -1,10 +1,9 @@
 package tests;
 
-import PageObject.Checkbox.DemoQaCheckBoxResult;
-import PageObject.Checkbox.DemoQaCheckBoxSelection;
+import PageObject.Checkbox.CheckBoxResult;
+import PageObject.Checkbox.CheckBoxSelection;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class CheckBoxTest {
@@ -32,23 +30,23 @@ public class CheckBoxTest {
 
     @Test
     void testExpandHomeFolder() {
-        DemoQaCheckBoxSelection selection = new DemoQaCheckBoxSelection(driver);
+        CheckBoxSelection selection = new CheckBoxSelection(driver);
         selection.loadPage();
         selection.waitClick();
-        selection.expandNode(DemoQaCheckBoxSelection.homeToggle);
+        selection.expandNode(CheckBoxSelection.homeToggle);
 
-        DemoQaCheckBoxResult result = new DemoQaCheckBoxResult(driver);
-        System.out.println(result.result(DemoQaCheckBoxResult.desktopNode));
+        CheckBoxResult result = new CheckBoxResult(driver);
+        System.out.println(result.result(CheckBoxResult.desktopNode));
     }
 
     @Test
     void testExpandAll() {
-        DemoQaCheckBoxSelection selection = new DemoQaCheckBoxSelection(driver);
+        CheckBoxSelection selection = new CheckBoxSelection(driver);
         selection.loadPage();
         selection.waitClick();
         selection.expandAll();
 
-        DemoQaCheckBoxResult results = new DemoQaCheckBoxResult(driver);
+        CheckBoxResult results = new CheckBoxResult(driver);
         for (var result :
                 results.expandResult()) {
             System.out.println(result);
@@ -58,13 +56,13 @@ public class CheckBoxTest {
 
     @Test
     void collapseAll() {
-        DemoQaCheckBoxSelection selection = new DemoQaCheckBoxSelection(driver);
+        CheckBoxSelection selection = new CheckBoxSelection(driver);
         selection.loadPage();
         selection.waitClick();
         selection.expandAll();
         selection.collapseAll();
 
-        DemoQaCheckBoxResult results = new DemoQaCheckBoxResult(driver);
+        CheckBoxResult results = new CheckBoxResult(driver);
         results.collapseResult();
         for (var result: results.collapseResult()){
             Assertions.assertThrows(NoSuchElementException.class, () -> {
@@ -76,7 +74,7 @@ public class CheckBoxTest {
 
     @Test
     void testSelectAll() {
-        DemoQaCheckBoxSelection selection = new DemoQaCheckBoxSelection(driver);
+        CheckBoxSelection selection = new CheckBoxSelection(driver);
         selection.loadPage();
         selection.waitClick();
         selection.expandAll();
@@ -101,7 +99,7 @@ public class CheckBoxTest {
                 "excelFile");
 
 //        System.out.println(driver.findElement(By.cssSelector("input#tree-node-home")).isSelected());;
-        DemoQaCheckBoxResult results = new DemoQaCheckBoxResult(driver);
+        CheckBoxResult results = new CheckBoxResult(driver);
         results.selectAllResult().forEach((texts,checkeds) -> {
 //            System.out.println(texts);
 //            System.out.println(checkeds);
