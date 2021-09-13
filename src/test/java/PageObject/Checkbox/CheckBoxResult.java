@@ -15,47 +15,47 @@ public class CheckBoxResult extends AbstractPageObj {
     /*
         locator used to interact with the checkbox web at https://demoqa.com/checkbox
      */
-    public static final By homeNode = By.cssSelector("label[for=\"tree-node-home\"]0");
-    public static final By desktopNode = By.cssSelector("label[for=\"tree-node-desktop\"]");
-    public static final By noteNode = By.cssSelector("label[for=\"tree-node-notes\"]");
-    public static final By commandNode = By.cssSelector("label[for=\"tree-node-commands\"]");
-    public static final By documentsNode = By.cssSelector("label[for=\"tree-node-documents\"]");
-    public static final By workspaceNode = By.cssSelector("label[for=\"tree-node-workspace\"]");
-    public static final By reactNode = By.cssSelector("label[for=\"tree-node-react\"]");
-    public static final By angularNode = By.cssSelector("label[for=\"tree-node-angular\"]");
-    public static final By veuNode = By.cssSelector("label[for=\"tree-node-veu\"]");
-    public static final By officeNode = By.cssSelector("label[for=\"tree-node-office\"]");
-    public static final By publicNode = By.cssSelector("label[for=\"tree-node-public\"]");
-    public static final By privateNode = By.cssSelector("label[for=\"tree-node-private\"]");
-    public static final By classifiedNode = By.cssSelector("label[for=\"tree-node-classified\"]");
-    public static final By generalNode = By.cssSelector("label[for=\"tree-node-general\"]");
-    public static final By downloadsNode = By.cssSelector("label[for=\"tree-node-downloads\"]");
-    public static final By wordNode = By.cssSelector("label[for=\"tree-node-wordFile\"]");
-    public static final By excelNode = By.cssSelector("label[for=\"tree-node-excelFile\"]");
+    public static final String homeNode = "label[for=\"tree-node-home\"]0";
+    public static final String desktopNode = "label[for=\"tree-node-desktop\"]";
+    public static final String noteNode = "label[for=\"tree-node-notes\"]";
+    public static final String commandNode = "label[for=\"tree-node-commands\"]";
+    public static final String documentsNode = "label[for=\"tree-node-documents\"]";
+    public static final String workspaceNode = "label[for=\"tree-node-workspace\"]";
+    public static final String reactNode = "label[for=\"tree-node-react\"]";
+    public static final String angularNode = "label[for=\"tree-node-angular\"]";
+    public static final String veuNode = "label[for=\"tree-node-veu\"]";
+    public static final String officeNode = "label[for=\"tree-node-office\"]";
+    public static final String publicNode = "label[for=\"tree-node-public\"]";
+    public static final String privateNode = "label[for=\"tree-node-private\"]";
+    public static final String classifiedNode = "label[for=\"tree-node-classified\"]";
+    public static final String generalNode = "label[for=\"tree-node-general\"]";
+    public static final String downloadsNode = "label[for=\"tree-node-downloads\"]";
+    public static final String wordNode = "label[for=\"tree-node-wordFile\"]";
+    public static final String excelNode = "label[for=\"tree-node-excelFile\"]";
 
     /*
     locator used to check if the checkbox checked or not.
     pass these variable as an arguments for @nodesList method.
      */
-    public static final By homeNodeChecked = By.cssSelector("input#tree-node-home");
-    public static final By desktopNodeChecked = By.cssSelector("input#tree-node-desktop");
-    public static final By noteNodeChecked = By.cssSelector("input#tree-node-notes");
-    public static final By commandNodeChecked = By.cssSelector("input#tree-node-commands");
-    public static final By documentsNodeChecked = By.cssSelector("input#tree-node-documents");
-    public static final By workspaceNodeChecked = By.cssSelector("input#tree-node-workspace");
-    public static final By reactNodeChecked = By.cssSelector("input#tree-node-react");
-    public static final By angularNodeChecked = By.cssSelector("input#tree-node-angular");
-    public static final By veuNodeChecked = By.cssSelector("input#tree-node-veu");
-    public static final By officeNodeChecked = By.cssSelector("input#tree-node-office");
-    public static final By publicNodeChecked = By.cssSelector("input#tree-node-public");
-    public static final By privateNodeChecked = By.cssSelector("input#tree-node-private");
-    public static final By classifiedNodeChecked = By.cssSelector("input#tree-node-classified");
-    public static final By generalNodeChecked = By.cssSelector("input#tree-node-general");
-    public static final By downloadsNodeChecked = By.cssSelector("input#tree-node-downloads");
-    public static final By wordNodeChecked = By.cssSelector("input#tree-node-wordFile");
-    public static final By excelNodeChecked = By.cssSelector("input#tree-node-excelFile");
+    public static final String homeNodeChecked = "input#tree-node-home";
+    public static final String desktopNodeChecked = "input#tree-node-desktop";
+    public static final String noteNodeChecked = "input#tree-node-notes";
+    public static final String commandNodeChecked = "input#tree-node-commands";
+    public static final String documentsNodeChecked = "input#tree-node-documents";
+    public static final String workspaceNodeChecked = "input#tree-node-workspace";
+    public static final String reactNodeChecked = "input#tree-node-react";
+    public static final String angularNodeChecked = "input#tree-node-angular";
+    public static final String veuNodeChecked = "input#tree-node-veu";
+    public static final String officeNodeChecked = "input#tree-node-office";
+    public static final String publicNodeChecked = "input#tree-node-public";
+    public static final String privateNodeChecked = "input#tree-node-private";
+    public static final String classifiedNodeChecked = "input#tree-node-classified";
+    public static final String generalNodeChecked = "input#tree-node-general";
+    public static final String downloadsNodeChecked = "input#tree-node-downloads";
+    public static final String wordNodeChecked = "input#tree-node-wordFile";
+    public static final String excelNodeChecked = "input#tree-node-excelFile";
 
-    public static final By resultText = By.cssSelector("#result span.text-success");
+    public static final String resultText = "#result span.text-success";
 
     public CheckBoxResult(WebDriver driver) {
         super(driver);
@@ -65,28 +65,36 @@ public class CheckBoxResult extends AbstractPageObj {
         getWait().until(ExpectedConditions.visibilityOfElementLocated(node));
         return getDriver().findElement(node).getText();
     }
-
     /*
         this method is used to expand all the folders
      */
-    public List<String> expandResult(){
-        getWait().until(ExpectedConditions.visibilityOfElementLocated(desktopNode));
-        getWait().until(ExpectedConditions.visibilityOfElementLocated(excelNode));
+    public List<String> expandAllResult(){
+        locateElementByCssSelector(desktopNode);
+        locateElementByCssSelector(excelNode);
 
-        return List.of(getDriver().findElement(desktopNode).getText(), getDriver().findElement(excelNode).getText());
+        return List.of(getTextByCssSelector(desktopNode), getTextByCssSelector(excelNode));
+    }
+    public List<String> expandHomeResult(){
+        locateElementByCssSelector(desktopNode);
+        locateElementByCssSelector(downloadsNode);
+
+        return List.of(getTextByCssSelector(desktopNode), getTextByCssSelector(downloadsNode));
     }
     /*
         this method used to collapse all the folders
      */
     public List<Boolean> collapseResult(){
-        return List.of(getDriver().findElement(desktopNode).isDisplayed(), getDriver().findElement(excelNode).isDisplayed());
+        return List.of(
+                locateElementByCssSelector(desktopNode).isDisplayed(),
+                locateElementByCssSelector(excelNode).isDisplayed()
+        );
     }
 
     // return checkbox checked status
-    public List<Boolean> nodesList(List<By> nodes){
+    public List<Boolean> nodesList(List<String> nodes){
         List<Boolean> status = new LinkedList<>();
         for (var node : nodes) {
-            status.add(getDriver().findElement(node).isSelected());
+            status.add(getNodeByCssSelector(node).isSelected());
         }
         return status;
     }
@@ -95,10 +103,10 @@ public class CheckBoxResult extends AbstractPageObj {
         return checked status and list of selected folders
      */
     public Map<List<String>, List<Boolean>> selectAllResult(){
-        getWait().until(ExpectedConditions.visibilityOfElementLocated(desktopNode));
-        if(!getDriver().findElement(homeNodeChecked).isSelected()){
-            System.out.println("Will not load");
-        }
+        locateElementByCssSelector(desktopNode);
+//        if(!locateElementByCssSelector(homeNode).isSelected()){
+//            System.out.println("Will not load");
+//        }
 
         List<Boolean> checked = nodesList(List.of(
                 homeNodeChecked,
@@ -118,7 +126,7 @@ public class CheckBoxResult extends AbstractPageObj {
                 downloadsNodeChecked,
                 wordNodeChecked,
                 excelNodeChecked));
-        List<WebElement> texts = getDriver().findElements(resultText);
+        List<WebElement> texts = getListOfElement(resultText);
         List<String> selected = new LinkedList<>();
 
         for (var text: texts) {

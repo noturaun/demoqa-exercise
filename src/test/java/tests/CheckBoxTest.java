@@ -1,7 +1,7 @@
 package tests;
 
 import PageObject.Checkbox.CheckBoxResult;
-import PageObject.Checkbox.CheckBoxSelection;
+import PageObject.Checkbox.CheckBoxAction;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
@@ -30,33 +30,39 @@ public class CheckBoxTest {
 
     @Test
     void testExpandHomeFolder() {
-        CheckBoxSelection selection = new CheckBoxSelection(driver);
+        CheckBoxAction selection = new CheckBoxAction(driver);
         selection.loadPage();
         selection.waitClick();
-        selection.expandNode(CheckBoxSelection.homeToggle);
+        selection.expandHome();
 
-        CheckBoxResult result = new CheckBoxResult(driver);
-        System.out.println(result.result(CheckBoxResult.desktopNode));
+        CheckBoxResult results = new CheckBoxResult(driver);
+        for (var result :
+                results.expandHomeResult()) {
+            System.out.println(result);
+            Assertions.assertTrue(result.matches("(?i).*Desktop.*|(?i).*Downloads.*"));
+        }
+
     }
 
     @Test
     void testExpandAll() {
-        CheckBoxSelection selection = new CheckBoxSelection(driver);
+        CheckBoxAction selection = new CheckBoxAction(driver);
         selection.loadPage();
         selection.waitClick();
         selection.expandAll();
 
         CheckBoxResult results = new CheckBoxResult(driver);
         for (var result :
-                results.expandResult()) {
+                results.expandAllResult()) {
             System.out.println(result);
             Assertions.assertTrue(result.matches("(?i).*Desktop.*|(?i).*Excel File.*"));
         }
     }
 
     @Test
+    @Disabled
     void collapseAll() {
-        CheckBoxSelection selection = new CheckBoxSelection(driver);
+        CheckBoxAction selection = new CheckBoxAction(driver);
         selection.loadPage();
         selection.waitClick();
         selection.expandAll();
@@ -74,7 +80,7 @@ public class CheckBoxTest {
 
     @Test
     void testSelectAll() {
-        CheckBoxSelection selection = new CheckBoxSelection(driver);
+        CheckBoxAction selection = new CheckBoxAction(driver);
         selection.loadPage();
         selection.waitClick();
         selection.expandAll();
@@ -98,18 +104,14 @@ public class CheckBoxTest {
                 "wordFile",
                 "excelFile");
 
-//        System.out.println(driver.findElement(By.cssSelector("input#tree-node-home")).isSelected());;
+
         CheckBoxResult results = new CheckBoxResult(driver);
         results.selectAllResult().forEach((texts,checkeds) -> {
-//            System.out.println(texts);
-//            System.out.println(checkeds);
             for (var checked :
                     checkeds) {
-//                System.out.println(checked);
                 Assertions.assertEquals(true, checked);
             }
             for (int i = 0; i < texts.toArray().length; i++) {
-//                System.out.println(texts.toArray()[i]);
                 Assertions.assertEquals(strings.toArray()[i],texts.toArray()[i]);
             }
         });

@@ -1,7 +1,7 @@
 package tests;
 
 import PageObject.RadioButton.RadioButtonResult;
-import PageObject.RadioButton.RadioButtonSelection;
+import PageObject.RadioButton.RadioButtonAction;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
@@ -27,22 +27,20 @@ public class RadioButtonTest {
 
     @Test
     void testSelectYes() {
-        RadioButtonSelection selection = new RadioButtonSelection(driver);
+        RadioButtonAction selection = new RadioButtonAction(driver);
         selection.loadPage();
-        selection.waitClick();
-        selection.choose(RadioButtonSelection.yes);
+        selection.choose(RadioButtonAction.yes);
 
         RadioButtonResult result = new RadioButtonResult(driver);
-        System.out.println(result.getText(RadioButtonResult.text));
         Assertions.assertEquals("Yes",result.getText(RadioButtonResult.text));
     }
 
     @Test
     void testSelectImpressive() {
-        RadioButtonSelection selection = new RadioButtonSelection(driver);
+        RadioButtonAction selection = new RadioButtonAction(driver);
         selection.loadPage();
-        selection.waitClick();
-        selection.choose(RadioButtonSelection.impressive);
+//        selection.waitClick();
+        selection.choose(RadioButtonAction.impressive);
 
         RadioButtonResult result = new RadioButtonResult(driver);
         System.out.println(result.getText(RadioButtonResult.text));
@@ -53,16 +51,16 @@ public class RadioButtonTest {
     @Disabled
     @Test
     void testSelectNo() {
-        RadioButtonSelection selection = new RadioButtonSelection(driver);
+        RadioButtonAction selection = new RadioButtonAction(driver);
         selection.loadPage();
-        selection.waitClick();
-        if (selection.isEnabled(RadioButtonSelection.no)){
-            selection.choose(RadioButtonSelection.no);
+//        selection.waitClick();
+        if (selection.isEnabled(RadioButtonAction.no)){
+            selection.choose(RadioButtonAction.no);
         }
 
         RadioButtonResult result = new RadioButtonResult(driver);
-        System.out.println(result.noRadioDisabled(RadioButtonSelection.no));
-        Assertions.assertEquals(false,selection.isEnabled(RadioButtonSelection.no));
+        System.out.println(result.noRadioDisabled(RadioButtonAction.no));
+        Assertions.assertEquals(false,selection.isEnabled(RadioButtonAction.no));
     }
 
     @AfterEach
