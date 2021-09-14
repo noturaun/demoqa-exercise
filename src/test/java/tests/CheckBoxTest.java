@@ -7,8 +7,6 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -103,7 +101,6 @@ public class CheckBoxTest {
                 "downloads",
                 "wordFile",
                 "excelFile");
-
 
         CheckBoxResult results = new CheckBoxResult(driver);
         results.selectAllResult().forEach((texts,checkeds) -> {

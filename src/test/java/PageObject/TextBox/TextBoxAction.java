@@ -1,12 +1,11 @@
 package PageObject.TextBox;
 
-import PageObject.AbstractPageObj;
-import org.openqa.selenium.By;
+import PageObject.PageObject;
+import PageObject.Locators;
+import PageObject.Actions;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import static PageObject.AbstractPageObj.mainHeader;
 
-public class TextBoxAction extends AbstractPageObj {
+public class TextBoxAction extends PageObject {
 
     public final static String fullNameInput = "userName";
     public final static String emailInput = "userEmail";
@@ -23,19 +22,19 @@ public class TextBoxAction extends AbstractPageObj {
     }
 
     public void input(String fullname, String email, String currentAddress, String permanentAddress){
-        locateElementByClassName(mainHeader);
-        getNodeById(fullNameInput).sendKeys(fullname);
-        getNodeById(emailInput).sendKeys(email);
-        getNodeById(currentAddressInput).sendKeys(currentAddress);
-        getNodeById(permanentAddressInput).sendKeys(permanentAddress);
-        getNodeById(submitButton).click();
+        Locators.waitElementWithThisClassName(mainHeader);
+        Actions.enterTextToThisFieldWithId(fullNameInput, fullname);
+        Actions.enterTextToThisFieldWithId(emailInput, email);
+        Actions.enterTextToThisFieldWithId(currentAddressInput, currentAddress);
+        Actions.enterTextToThisFieldWithId(permanentAddressInput, permanentAddress);
+        Actions.clickButtonWithThisId(submitButton);
     }
 
     public void inputPartial(String fullname, String email){
-        locateElementByClassName(mainHeader);
-        getNodeById(fullNameInput).sendKeys(fullname);
-        getNodeById(emailInput).sendKeys(email);
-        getNodeById(submitButton).click();
+        Locators.waitElementWithThisClassName(mainHeader);
+        Actions.enterTextToThisFieldWithId(fullNameInput, fullname);
+        Actions.enterTextToThisFieldWithId(emailInput, email);
+        Actions.clickButtonWithThisId(submitButton);
     }
 
 }

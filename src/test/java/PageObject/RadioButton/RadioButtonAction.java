@@ -1,12 +1,11 @@
 package PageObject.RadioButton;
 
-import PageObject.AbstractPageObj;
-import org.openqa.selenium.By;
+import PageObject.PageObject;
+import PageObject.Locators;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
-public class RadioButtonAction extends AbstractPageObj {
+public class RadioButtonAction extends PageObject {
 
     public static final String mainHeader = "main-header";
     public static final String yes = "label[for=\"yesRadio\"]";
@@ -21,12 +20,12 @@ public class RadioButtonAction extends AbstractPageObj {
         getDriver().get("https://demoqa.com/radio-button");
     }
     public void waitClick(){
-        locateElementByClassName(mainHeader);
+        Locators.waitElementWithThisClassName(mainHeader);
     }
     public void choose(String node){
-        getNodeByCssSelector(node).click();
+        Locators.getElementByCssSelector(node).click();
     }
     public Boolean isEnabled(String node){
-        return getNodeByCssSelector(node).isEnabled();
+        return Locators.getElementByCssSelector(node).isEnabled();
     }
 }

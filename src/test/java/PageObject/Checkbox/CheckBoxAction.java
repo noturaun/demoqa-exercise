@@ -1,11 +1,11 @@
 package PageObject.Checkbox;
 
-import PageObject.AbstractPageObj;
-import org.openqa.selenium.By;
+import PageObject.PageObject;
+import PageObject.Locators;
+import PageObject.Actions;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class CheckBoxAction extends AbstractPageObj {
+public class CheckBoxAction extends PageObject {
 
     public static final String mainHeader = "main-header";
     public static final String homeToggle = "button[title=\"Toggle\"]";
@@ -22,22 +22,21 @@ public class CheckBoxAction extends AbstractPageObj {
     }
 
     public void waitClick(){
-        locateElementByCssSelector(homeToggle);
-
+        Locators.waitElementWithThisCssSelector(homeToggle);
     }
     public void expandHome(){
-        getNodeByCssSelector(homeToggle).click();
+        Actions.clickButtonWithThisSelector(homeToggle);
     }
     public void expandAll(){
-        getNodeByCssSelector(expandAll).click();
+        Actions.clickButtonWithThisSelector(expandAll);
     }
     public void collapseAll(){
-        getNodeByCssSelector(collapseAll).click();
+        Actions.clickButtonWithThisSelector(collapseAll);
     }
 
     public void selectAll(){
-        locateElementByClassName(mainHeader);
-        getNodeByCssSelector(selectAll).click();
+        Locators.waitElementWithThisClassName(mainHeader);
+        Actions.clickButtonWithThisSelector(selectAll);
     }
 
 }

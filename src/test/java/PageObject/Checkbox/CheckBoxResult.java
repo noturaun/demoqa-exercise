@@ -1,6 +1,7 @@
 package PageObject.Checkbox;
 
-import PageObject.AbstractPageObj;
+import PageObject.PageObject;
+import PageObject.Locators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class CheckBoxResult extends AbstractPageObj {
+public class CheckBoxResult extends PageObject {
 
     /*
         locator used to interact with the checkbox web at https://demoqa.com/checkbox
@@ -69,24 +70,24 @@ public class CheckBoxResult extends AbstractPageObj {
         this method is used to expand all the folders
      */
     public List<String> expandAllResult(){
-        locateElementByCssSelector(desktopNode);
-        locateElementByCssSelector(excelNode);
+        Locators.waitElementWithThisCssSelector(desktopNode);
+        Locators.waitElementWithThisCssSelector((excelNode));
 
-        return List.of(getTextByCssSelector(desktopNode), getTextByCssSelector(excelNode));
+        return List.of(Locators.getTextByCssSelector(desktopNode), Locators.getTextByCssSelector(excelNode));
     }
     public List<String> expandHomeResult(){
-        locateElementByCssSelector(desktopNode);
-        locateElementByCssSelector(downloadsNode);
+        Locators.waitElementWithThisCssSelector(desktopNode);
+        Locators.waitElementWithThisCssSelector(downloadsNode);
 
-        return List.of(getTextByCssSelector(desktopNode), getTextByCssSelector(downloadsNode));
+        return List.of(Locators.getTextByCssSelector(desktopNode), Locators.getTextByCssSelector(downloadsNode));
     }
     /*
         this method used to collapse all the folders
      */
     public List<Boolean> collapseResult(){
         return List.of(
-                locateElementByCssSelector(desktopNode).isDisplayed(),
-                locateElementByCssSelector(excelNode).isDisplayed()
+                Locators.getElementByCssSelector(desktopNode).isDisplayed(),
+                Locators.getElementByCssSelector(excelNode).isDisplayed()
         );
     }
 
@@ -94,7 +95,7 @@ public class CheckBoxResult extends AbstractPageObj {
     public List<Boolean> nodesList(List<String> nodes){
         List<Boolean> status = new LinkedList<>();
         for (var node : nodes) {
-            status.add(getNodeByCssSelector(node).isSelected());
+            status.add(Locators.isThisButtonIdIsSelected(node));
         }
         return status;
     }
@@ -103,7 +104,7 @@ public class CheckBoxResult extends AbstractPageObj {
         return checked status and list of selected folders
      */
     public Map<List<String>, List<Boolean>> selectAllResult(){
-        locateElementByCssSelector(desktopNode);
+        Locators.waitElementWithThisCssSelector(desktopNode);
 //        if(!locateElementByCssSelector(homeNode).isSelected()){
 //            System.out.println("Will not load");
 //        }
@@ -126,7 +127,7 @@ public class CheckBoxResult extends AbstractPageObj {
                 downloadsNodeChecked,
                 wordNodeChecked,
                 excelNodeChecked));
-        List<WebElement> texts = getListOfElement(resultText);
+        List<WebElement> texts = Locators.getListOfElement(resultText);
         List<String> selected = new LinkedList<>();
 
         for (var text: texts) {

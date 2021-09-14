@@ -4,6 +4,8 @@ import PageObject.WebTable.ModalFormAction;
 import PageObject.WebTable.ModalFormResult;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,7 +16,7 @@ public class ModalFormTest {
     WebDriver driver;
     WebDriverWait wait;
 
-    String addButton = "addNewRecordButton";
+
 
     @BeforeAll
     static void beforeAll() {
@@ -27,19 +29,18 @@ public class ModalFormTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
-    @Test
-    void testClickAddButton() {
+    @ParameterizedTest
+    @CsvSource(value = {"Muhammad, Syahrul, noturaun@users.noreply.github.com, 19, 12345, Xdept"})
+    void testClickAddButton(String firstName, String lastName, String email, String age, String salary, String dept) {
         ModalFormAction click = new ModalFormAction(driver);
         click.loadPage();
-        click.clickAdd(addButton);
-        click.inputRegistrationForm();
+        click.clickAdd();
+        click.inputRegistrationForm(firstName, lastName, email, age, salary, dept);
 
         ModalFormResult results = new ModalFormResult(driver);
         results.waitLoad();
-        System.out.println(results.getInputedText("rt-td"));
-        Assertions.assertEquals('x', results.getInputedText("rt-td"));
-
-        System.out.println(click.findNode(addButton).getTagName());
+        System.out.println(results.getRowItem());
+        Assertions.assertEquals("Muhammad", results.getRowItem());
     }
 
     @AfterEach

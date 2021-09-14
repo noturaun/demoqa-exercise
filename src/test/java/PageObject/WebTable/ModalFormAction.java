@@ -1,13 +1,14 @@
 package PageObject.WebTable;
 
-import PageObject.AbstractPageObj;
+import PageObject.PageObject;
+import PageObject.Locators;
+import PageObject.Actions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
-public class ModalFormAction extends AbstractPageObj {
+public class ModalFormAction extends PageObject {
 
     /*
         Pass these strings as argument fo findNode() method
@@ -21,6 +22,7 @@ public class ModalFormAction extends AbstractPageObj {
     public static final String departmentInput = "department";
     public static final String submitButton = "submit";
     public static final String mainHeader = "main-header";
+    public static final String addButton = "addNewRecordButton";
 
 
     public ModalFormAction(WebDriver driver) {
@@ -31,35 +33,29 @@ public class ModalFormAction extends AbstractPageObj {
         getDriver().get("https://demoqa.com/webtables");
     }
 
-    public WebElement waitLoad(String node){
-        if(node.equals("main-header")) {
-            return getWait().until(ExpectedConditions.visibilityOfElementLocated(By.className(node)));
-        }
-        return getWait().until(ExpectedConditions.visibilityOfElementLocated(By.id(node)));
+    public void clickAdd(){
+        Actions.clickButtonWithThisId(addButton);
     }
 
-    public WebElement findNode(String node){
-        if(node.equals("main-header")){
-            return getDriver().findElement(By.className(node));
-        }
-        return getDriver().findElement(By.id(node));
-    }
-
-    public void clickAdd(String node){
-        waitLoad(mainHeader);
-        findNode(node).click();
+    public void inputRegistrationForm(String firstName, String lastName, String email, String age, String salary, String dept){
+        Locators.waitElementWithThisId(formHeader);
+        Actions.enterTextToThisFieldWithId(firstNameInput,firstName);
+        Actions.enterTextToThisFieldWithId(lastNameInput,lastName);
+        Actions.enterTextToThisFieldWithId(emailInput,email);
+        Actions.enterTextToThisFieldWithId(ageInput,age);
+        Actions.enterTextToThisFieldWithId(salaryInput,salary);
+        Actions.enterTextToThisFieldWithId(departmentInput,dept);
+        Actions.clickButtonWithThisId(submitButton);
     }
 
     public void inputRegistrationForm(){
-        waitLoad(formHeader);
-        findNode(firstNameInput).sendKeys("x");
-        findNode(lastNameInput).sendKeys("y");
-        findNode(emailInput).sendKeys("x@xyz.cc");
-        findNode(ageInput).sendKeys("28");
-        findNode(salaryInput).sendKeys("12345");
-        findNode(departmentInput).sendKeys("dept");
-        findNode(submitButton).click();
+        Locators.waitElementWithThisId(formHeader);
+        Actions.enterTextToThisFieldWithId(firstNameInput,"Muhammad");
+        Actions.enterTextToThisFieldWithId(lastNameInput,"Syahrul");
+        Actions.enterTextToThisFieldWithId(emailInput,"noturaun@mail.com");
+        Actions.enterTextToThisFieldWithId(ageInput,"19");
+        Actions.enterTextToThisFieldWithId(salaryInput,"123456");
+        Actions.enterTextToThisFieldWithId(departmentInput,"Xdept");
+        Actions.clickButtonWithThisId(submitButton);
     }
-
-
 }

@@ -1,12 +1,12 @@
 package PageObject.WebTable;
 
-import PageObject.AbstractPageObj;
+import PageObject.PageObject;
+import PageObject.Locators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class ModalFormResult extends AbstractPageObj {
+public class ModalFormResult extends PageObject {
 
 
     public static final String formHeader = "registration-form-modal";
@@ -18,20 +18,19 @@ public class ModalFormResult extends AbstractPageObj {
     public static final String departmentInput = "department";
     public static final String submitButton = "submit";
     public static final String mainHeader = "main-header";
+    public static final String tableBody = "rt-tbody";
+    public static final String cellPath = "//div[@class='rt-tbody']//div[@class='rt-tr-group'][4]//div[@class='rt-td'][1]";
 
 
     public ModalFormResult(WebDriver driver) {
         super(driver);
     }
 
-    public WebElement getNode(String node){
-        return getDriver().findElement(By.id(node));
-    }
     public void waitLoad(){
-        getWait().until(ExpectedConditions.visibilityOfElementLocated(By.className(mainHeader)));
+        Locators.waitElementWithThisClassName(tableBody);
     }
 
-    public String getInputedText(String node){
-        return getDriver().findElement(By.className(node)).getText();
+    public String getRowItem(){
+        return Locators.getTextByXpath(cellPath);
     }
 }

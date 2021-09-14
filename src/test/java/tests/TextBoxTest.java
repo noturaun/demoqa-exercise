@@ -3,10 +3,7 @@ package tests;
 import PageObject.TextBox.TextBoxAction;
 import PageObject.TextBox.TextBoxResult;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.By;
@@ -36,8 +33,8 @@ public class TextBoxTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
-    @ParameterizedTest
-    @CsvSource(value = {"Muhammad Syahrul, noturaun@mail.com, Bogor, Bogor"})
+    @ParameterizedTest //74359025+noturaun@users.noreply.github.com
+    @CsvSource(value = {"Muhammad Syahrul, noturaun@users.noreply.github.com, Bogor, Bogor"})
     void testSumbitFull(String fullName, String email, String currentAddress, String permanentAddress) {
         TextBoxAction input = new TextBoxAction(driver);
         input.loadPage();
@@ -50,14 +47,14 @@ public class TextBoxTest {
             System.out.println();
 
         assertEquals("Name:Muhammad Syahrul", results.getSubmitResult().toArray()[0]);
-        assertEquals("Email:noturaun@mail.com", results.getSubmitResult().toArray()[1]);
+        assertEquals("Email:noturaun@users.noreply.github.com", results.getSubmitResult().toArray()[1]);
         assertEquals("Current Address :Bogor", results.getSubmitResult().toArray()[2]);
         assertEquals("Permananet Address :Bogor", results.getSubmitResult().toArray()[3]);
         }
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"Muhammad Syahrul, noturaun@mail.com,"})
+    @CsvSource(value = {"Muhammad Syahrul, noturaun@users.noreply.github.com"})
     void testPartialSubmit(String fullName, String email) {
         TextBoxAction input = new TextBoxAction(driver);
         input.loadPage();
@@ -75,6 +72,7 @@ public class TextBoxTest {
 
     }
 
+    @Disabled
     @Test
     void testFindElements() {
         TextBoxAction input = new TextBoxAction(driver);
