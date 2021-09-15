@@ -3,6 +3,7 @@ package PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,7 +40,6 @@ public abstract class Locators extends PageObject{
         return getDriver().findElement(By.cssSelector(cssSelector));
     }
 
-
     public static WebElement getElementByXpath(String xpath){
         return getDriver().findElement(By.xpath(xpath));
     }
@@ -72,23 +72,27 @@ public abstract class Locators extends PageObject{
         return list;
     }
 
-    public static List<String> getListOfTextWithId(List<String> classNames){
+    public static List<String> getListOfTextWithClassName(List<String> className){
         List<String> list = new LinkedList<>();
-        for (var className : classNames) {
-            list.add(getTextByCssSelector(className));
+        for (var classname : className) {
+            list.add(getTextByCssSelector(classname));
         }
         return list;
     }
 
-    public static List<String> getListOfTextWithXpath(List<String> xpaths){
+    public static List<String> getListOfTextWithXpath(List<String> xpath){
         List<String> list = new LinkedList<>();
-        for (var xpath : xpaths) {
-            list.add(getTextByCssSelector(xpath));
+        for (var path : xpath) {
+            list.add(getTextByCssSelector(path));
         }
         return list;
     }
 
     public static Boolean isThisButtonIdIsSelected(String id){
         return getElementByCssSelector(id).isSelected();
+    }
+
+    public static String getColor(String selector, String prop){
+        return getElementByCssSelector(selector).getCssValue(prop);
     }
 }
