@@ -3,8 +3,9 @@ package PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,6 +29,22 @@ public abstract class Locators extends PageObject{
         return getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
     }
 
+    public static WebElement waitElementWithThisClassNameEnabled(String className){
+        return getWait().until(ExpectedConditions.elementToBeClickable(By.className(className)));
+    }
+
+    public static WebElement waitElementWithThisIdEnabled(String id){
+        return getWait().until(ExpectedConditions.elementToBeClickable(By.id(id)));
+    }
+
+    public static WebElement waitElementWithThisCssSelectorEnabled(String cssSelector){
+        return getWait().until(ExpectedConditions.elementToBeClickable(By.cssSelector(cssSelector)));
+    }
+
+    public static WebElement waitElementWithThisXpathEnabled(String xpath){
+        return getWait().until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+    }
+
     public static WebElement getElementById(String id){
         return getDriver().findElement(By.id(id));
     }
@@ -44,8 +61,16 @@ public abstract class Locators extends PageObject{
         return getDriver().findElement(By.xpath(xpath));
     }
 
-    public static List<WebElement> getListOfElement(String cssSelector){
+    public static List<WebElement> getElementsByCssSelector(String cssSelector){
         return getDriver().findElements(By.cssSelector(cssSelector));
+    }
+
+    public static List<WebElement> getElementsByClassName(String className){
+        return getDriver().findElements(By.className(className));
+    }
+
+    public static List<WebElement> getElementsByXpath(String xpath){
+        return getDriver().findElements(By.xpath(xpath));
     }
 
     public static String getTextById(String id){
@@ -89,10 +114,38 @@ public abstract class Locators extends PageObject{
     }
 
     public static Boolean isThisButtonIdIsSelected(String id){
-        return getElementByCssSelector(id).isSelected();
+        return getElementById(id).isSelected();
+    }
+
+    public static Boolean isThisThisElementSelectorIsExist(String selector){
+        return getElementByCssSelector(selector).isSelected();
+    }
+
+    public static Boolean isThisThisElementXPathIsgetElementByXpath(String xpath){
+        return getElementByXpath(xpath).isSelected();
     }
 
     public static String getColor(String selector, String prop){
         return getElementByCssSelector(selector).getCssValue(prop);
+    }
+
+    public static Select getSelectElement(String selector){
+        return new Select(getElementByCssSelector(selector));
+    }
+
+    public static List<WebElement> getSelectedOption(String selector){
+        return getSelectElement(selector).getAllSelectedOptions();
+    }
+
+    public static String getValueByClassName(String className){
+        return getElementByClassName(className).getAttribute("value");
+    }
+
+    public static String getValueById(String id){
+        return Locators.getElementById(id).getAttribute("value");
+    }
+
+    public static String getValueByCssSelector(String cssSelector){
+        return Locators.getElementByCssSelector(cssSelector).getAttribute("value");
     }
 }

@@ -127,7 +127,7 @@ public class CheckBoxResult extends PageObject {
                 downloadsNodeChecked,
                 wordNodeChecked,
                 excelNodeChecked));
-        List<WebElement> texts = Locators.getListOfElement(resultText);
+        List<WebElement> texts = Locators.getElementsByCssSelector(resultText);
         List<String> selected = new LinkedList<>();
 
         for (var text: texts) {

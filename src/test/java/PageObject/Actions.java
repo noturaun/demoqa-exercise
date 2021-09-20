@@ -1,6 +1,8 @@
 package PageObject;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public abstract class Actions extends PageObject{
     public Actions(WebDriver driver) {
@@ -33,5 +35,17 @@ public abstract class Actions extends PageObject{
 
     public static void enterTextToThisFieldWithClassName(String className, String phrase){
         Locators.getElementByClassName(className).sendKeys(phrase);
+    }
+
+    public static void clearInputFieldById(String id){
+        Locators.getElementById(id).clear();
+    }
+
+    public static void selectOption(String selector, String visibleText){
+        Locators.getSelectElement(selector).selectByVisibleText(visibleText);
+    }
+
+    public static void enterKeysToThisFieldWithCssSelector(String cssSelector, Keys keys){
+        Locators.getElementByCssSelector(cssSelector).sendKeys(keys);
     }
 }

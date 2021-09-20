@@ -4,12 +4,15 @@ import PageObject.Checkbox.CheckBoxResult;
 import PageObject.Checkbox.CheckBoxAction;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CheckBoxTest {
     WebDriver driver;
@@ -37,7 +40,7 @@ public class CheckBoxTest {
         for (var result :
                 results.expandHomeResult()) {
             System.out.println(result);
-            Assertions.assertTrue(result.matches("(?i).*Desktop.*|(?i).*Downloads.*"));
+            assertTrue(result.matches("(?i).*Desktop.*|(?i).*Downloads.*"));
         }
 
     }
@@ -53,7 +56,7 @@ public class CheckBoxTest {
         for (var result :
                 results.expandAllResult()) {
             System.out.println(result);
-            Assertions.assertTrue(result.matches("(?i).*Desktop.*|(?i).*Excel File.*"));
+            assertTrue(result.matches("(?i).*Desktop.*|(?i).*Excel File.*"));
         }
     }
 
@@ -69,11 +72,9 @@ public class CheckBoxTest {
         CheckBoxResult results = new CheckBoxResult(driver);
         results.collapseResult();
         for (var result: results.collapseResult()){
-            Assertions.assertThrows(NoSuchElementException.class, () -> {
-
+            assertThrows(NoSuchElementException.class, () -> {
             });
         }
-
     }
 
     @Test
@@ -106,13 +107,12 @@ public class CheckBoxTest {
         results.selectAllResult().forEach((texts,checkeds) -> {
             for (var checked :
                     checkeds) {
-                Assertions.assertEquals(true, checked);
+                assertEquals(true, checked);
             }
             for (int i = 0; i < texts.toArray().length; i++) {
-                Assertions.assertEquals(strings.toArray()[i],texts.toArray()[i]);
+                assertEquals(strings.toArray()[i],texts.toArray()[i]);
             }
         });
-
     }
 
     @AfterEach
