@@ -1,7 +1,7 @@
 package PageObject.Checkbox;
 
 import PageObject.PageObject;
-import PageObject.Locators;
+import PageObject.PageLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -70,24 +70,24 @@ public class CheckBoxResult extends PageObject {
         this method is used to expand all the folders
      */
     public List<String> expandAllResult(){
-        Locators.waitElementWithThisCssSelector(desktopNode);
-        Locators.waitElementWithThisCssSelector((excelNode));
+        PageLocators.waitElementWithThisCssSelector(desktopNode);
+        PageLocators.waitElementWithThisCssSelector((excelNode));
 
-        return List.of(Locators.getTextByCssSelector(desktopNode), Locators.getTextByCssSelector(excelNode));
+        return List.of(PageLocators.getTextByCssSelector(desktopNode), PageLocators.getTextByCssSelector(excelNode));
     }
     public List<String> expandHomeResult(){
-        Locators.waitElementWithThisCssSelector(desktopNode);
-        Locators.waitElementWithThisCssSelector(downloadsNode);
+        PageLocators.waitElementWithThisCssSelector(desktopNode);
+        PageLocators.waitElementWithThisCssSelector(downloadsNode);
 
-        return List.of(Locators.getTextByCssSelector(desktopNode), Locators.getTextByCssSelector(downloadsNode));
+        return List.of(PageLocators.getTextByCssSelector(desktopNode), PageLocators.getTextByCssSelector(downloadsNode));
     }
     /*
         this method used to collapse all the folders
      */
     public List<Boolean> collapseResult(){
         return List.of(
-                Locators.getElementByCssSelector(desktopNode).isDisplayed(),
-                Locators.getElementByCssSelector(excelNode).isDisplayed()
+                PageLocators.getElementByCssSelector(desktopNode).isDisplayed(),
+                PageLocators.getElementByCssSelector(excelNode).isDisplayed()
         );
     }
 
@@ -95,7 +95,7 @@ public class CheckBoxResult extends PageObject {
     public List<Boolean> nodesList(List<String> nodes){
         List<Boolean> status = new LinkedList<>();
         for (var node : nodes) {
-            status.add(Locators.isThisButtonIdIsSelected(node));
+            status.add(PageLocators.isThisButtonIdIsSelected(node));
         }
         return status;
     }
@@ -104,7 +104,7 @@ public class CheckBoxResult extends PageObject {
         return checked status and list of selected folders
      */
     public Map<List<String>, List<Boolean>> selectAllResult(){
-        Locators.waitElementWithThisCssSelector(desktopNode);
+        PageLocators.waitElementWithThisCssSelector(desktopNode);
 //        if(!locateElementByCssSelector(homeNode).isSelected()){
 //            System.out.println("Will not load");
 //        }
@@ -127,7 +127,7 @@ public class CheckBoxResult extends PageObject {
                 downloadsNodeChecked,
                 wordNodeChecked,
                 excelNodeChecked));
-        List<WebElement> texts = Locators.getElementsByCssSelector(resultText);
+        List<WebElement> texts = PageLocators.getElementsByCssSelector(resultText);
         List<String> selected = new LinkedList<>();
 
         for (var text: texts) {

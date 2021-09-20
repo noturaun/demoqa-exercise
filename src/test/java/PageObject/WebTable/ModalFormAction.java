@@ -1,19 +1,14 @@
 package PageObject.WebTable;
 
 import PageObject.PageObject;
-import PageObject.Locators;
-import PageObject.Actions;
 import com.github.javafaker.Faker;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 import java.util.*;
 
-import static PageObject.Actions.*;
-import static PageObject.Locators.waitElementWithThisId;
+import static PageObject.PageActions.*;
+import static PageObject.PageLocators.waitElementWithThisId;
 
 
 public class ModalFormAction extends PageObject {
@@ -32,6 +27,7 @@ public class ModalFormAction extends PageObject {
     public static final String mainHeader = "main-header";
     public static final String addButton = "addNewRecordButton";
     public static final String selectOpt = "select[aria-label='rows per page']";
+    public static final String searchBoxId = "searchBox";
 
     Faker faker = new Faker();
 
@@ -128,4 +124,10 @@ public class ModalFormAction extends PageObject {
         enterTextToThisFieldWithCssSelector("input[aria-label='jump to page']", page);
         enterKeysToThisFieldWithCssSelector("input[aria-label='jump to page']", Keys.ENTER);
     }
+
+    public void enterSearchPhrase(String phrase){
+        waitElementWithThisId(searchBoxId);
+        enterTextToThisFieldWithId(searchBoxId, phrase);
+    }
+
 }

@@ -1,7 +1,7 @@
 package PageObject.RadioButton;
 
 import PageObject.PageObject;
-import PageObject.Locators;
+import PageObject.PageLocators;
 import org.openqa.selenium.WebDriver;
 
 public class RadioButtonResult extends PageObject {
@@ -13,11 +13,11 @@ public class RadioButtonResult extends PageObject {
     }
 
     public String getText(String node){
-        return Locators.getTextByCssSelector(node);
+        return PageLocators.getTextByCssSelector(node);
     }
 
     public Boolean noRadioDisabled(String node){
-        return Locators.getElementByCssSelector(node).isEnabled();
+        return PageLocators.getElementByCssSelector(node).isEnabled();
     }
 
 }

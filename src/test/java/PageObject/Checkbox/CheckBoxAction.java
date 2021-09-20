@@ -1,8 +1,8 @@
 package PageObject.Checkbox;
 
 import PageObject.PageObject;
-import PageObject.Locators;
-import PageObject.Actions;
+import PageObject.PageLocators;
+import PageObject.PageActions;
 import org.openqa.selenium.WebDriver;
 
 public class CheckBoxAction extends PageObject {
@@ -22,21 +22,21 @@ public class CheckBoxAction extends PageObject {
     }
 
     public void waitClick(){
-        Locators.waitElementWithThisCssSelector(homeToggle);
+        PageLocators.waitElementWithThisCssSelector(homeToggle);
     }
     public void expandHome(){
-        Actions.clickButtonWithThisSelector(homeToggle);
+        PageActions.clickButtonWithThisSelector(homeToggle);
     }
     public void expandAll(){
-        Actions.clickButtonWithThisSelector(expandAll);
+        PageActions.clickButtonWithThisSelector(expandAll);
     }
     public void collapseAll(){
-        Actions.clickButtonWithThisSelector(collapseAll);
+        PageActions.clickButtonWithThisSelector(collapseAll);
     }
 
     public void selectAll(){
-        Locators.waitElementWithThisClassName(mainHeader);
-        Actions.clickButtonWithThisSelector(selectAll);
+        PageLocators.waitElementWithThisClassName(mainHeader);
+        PageActions.clickButtonWithThisSelector(selectAll);
     }
 
 }

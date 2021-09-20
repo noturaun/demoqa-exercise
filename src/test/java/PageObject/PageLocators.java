@@ -9,8 +9,8 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Locators extends PageObject{
-    public Locators(WebDriver driver) {
+public abstract class PageLocators extends PageObject{
+    public PageLocators(WebDriver driver) {
         super(driver);
     }
     
@@ -142,10 +142,14 @@ public abstract class Locators extends PageObject{
     }
 
     public static String getValueById(String id){
-        return Locators.getElementById(id).getAttribute("value");
+        return PageLocators.getElementById(id).getAttribute("value");
     }
 
     public static String getValueByCssSelector(String cssSelector){
-        return Locators.getElementByCssSelector(cssSelector).getAttribute("value");
+        return PageLocators.getElementByCssSelector(cssSelector).getAttribute("value");
+    }
+
+    public static Boolean waitValueContains(String locator, String attribute, String value){
+        return getWait().until(ExpectedConditions.attributeContains(By.id(locator), attribute, value));
     }
 }

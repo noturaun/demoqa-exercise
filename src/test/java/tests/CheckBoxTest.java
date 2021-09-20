@@ -53,8 +53,7 @@ public class CheckBoxTest {
         selection.expandAll();
 
         CheckBoxResult results = new CheckBoxResult(driver);
-        for (var result :
-                results.expandAllResult()) {
+        for (var result : results.expandAllResult()) {
             System.out.println(result);
             assertTrue(result.matches("(?i).*Desktop.*|(?i).*Excel File.*"));
         }

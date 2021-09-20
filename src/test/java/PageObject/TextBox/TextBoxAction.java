@@ -1,9 +1,13 @@
 package PageObject.TextBox;
 
 import PageObject.PageObject;
-import PageObject.Locators;
-import PageObject.Actions;
+import PageObject.PageLocators;
+import PageObject.PageActions;
 import org.openqa.selenium.WebDriver;
+
+import static PageObject.PageActions.clickButtonWithThisId;
+import static PageObject.PageActions.enterTextToThisFieldWithId;
+import static PageObject.PageLocators.waitElementWithThisClassName;
 
 public class TextBoxAction extends PageObject {
 
@@ -22,19 +26,19 @@ public class TextBoxAction extends PageObject {
     }
 
     public void input(String fullname, String email, String currentAddress, String permanentAddress){
-        Locators.waitElementWithThisClassName(mainHeader);
-        Actions.enterTextToThisFieldWithId(fullNameInput, fullname);
-        Actions.enterTextToThisFieldWithId(emailInput, email);
-        Actions.enterTextToThisFieldWithId(currentAddressInput, currentAddress);
-        Actions.enterTextToThisFieldWithId(permanentAddressInput, permanentAddress);
-        Actions.clickButtonWithThisId(submitButton);
+        waitElementWithThisClassName(mainHeader);
+        enterTextToThisFieldWithId(fullNameInput, fullname);
+        enterTextToThisFieldWithId(emailInput, email);
+        enterTextToThisFieldWithId(currentAddressInput, currentAddress);
+        enterTextToThisFieldWithId(permanentAddressInput, permanentAddress);
+        clickButtonWithThisId(submitButton);
     }
 
     public void inputPartial(String fullname, String email){
-        Locators.waitElementWithThisClassName(mainHeader);
-        Actions.enterTextToThisFieldWithId(fullNameInput, fullname);
-        Actions.enterTextToThisFieldWithId(emailInput, email);
-        Actions.clickButtonWithThisId(submitButton);
+        waitElementWithThisClassName(mainHeader);
+        enterTextToThisFieldWithId(fullNameInput, fullname);
+        enterTextToThisFieldWithId(emailInput, email);
+        clickButtonWithThisId(submitButton);
     }
 
 }

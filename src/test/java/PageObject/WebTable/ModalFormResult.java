@@ -1,17 +1,17 @@
 package PageObject.WebTable;
 
 import PageObject.PageObject;
-import PageObject.Locators;
+import PageObject.PageLocators;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static PageObject.Locators.*;
+import static PageObject.PageLocators.*;
 
 public class ModalFormResult extends PageObject {
 
@@ -32,6 +32,9 @@ public class ModalFormResult extends PageObject {
     public static final String firstNameCell = "//div[@class='rt-tbody']//div[@class='rt-tr-group']//div[@class='rt-td'][1]";
     public static final String firstNameCol = "//div[@class='rt-tbody']//div[@class='rt-tr-group'][%s]//div[@class='rt-td'][%s]";
     public static final String selectOpt = "select[aria-label='rows per page']";
+    public static final String tableData = "//div[./div[contains(text(),\"%s\")]]";
+    public static final String searchBoxId = "searchBox";
+
 
 
     public ModalFormResult(WebDriver driver) {
@@ -39,20 +42,20 @@ public class ModalFormResult extends PageObject {
     }
 
     public void waitLoad(){
-        Locators.waitElementWithThisClassName(tableBody);
+        PageLocators.waitElementWithThisClassName(tableBody);
     }
 
     public void waitWarning(){
-        Locators.waitElementWithThisId(".was-validated .form-control:invalid");
+        PageLocators.waitElementWithThisId(".was-validated .form-control:invalid");
     }
 
     public String getRecordAt(int row, int col){
         String path = String.format(firstNameCol,row,col);
-        return Locators.getTextByXpath(path);
+        return PageLocators.getTextByXpath(path);
     }
 
     public Boolean getModal(){
-        return Locators.getElementByClassName(modalDialog).isDisplayed();
+        return PageLocators.getElementByClassName(modalDialog).isDisplayed();
     }
 
     public String matcher(String strings){
@@ -63,7 +66,7 @@ public class ModalFormResult extends PageObject {
 
     // FIXME: 9/16/21 Selenium could not get the same exact color. Need work around.
     public Color getTextBoxWarning(){
-         return Color.fromString(Locators.getColor(".was-validated .form-control:invalid", "border-color"));
+         return Color.fromString(PageLocators.getColor(".was-validated .form-control:invalid", "border-color"));
 //        return Color.fromString(Locators.getColor("input#userEmail", "border-top-color"));
     }
 
@@ -78,7 +81,7 @@ public class ModalFormResult extends PageObject {
     public String showTableSize(){
 
         // assert using selected option
-            for (var option: Locators.getSelectElement(selectOpt).getOptions()) {
+            for (var option: PageLocators.getSelectElement(selectOpt).getOptions()) {
                 if (option.isSelected()){
                     return option.getText();
             }
@@ -113,5 +116,16 @@ public class ModalFormResult extends PageObject {
 
     public String pageSize(){
         return getTextByClassName("-totalPages");
+    }
+
+    public List<String> searchResult(String phrase){
+        String searchPhrase = String.format(tableData, phrase);
+        List<String> searchText = new LinkedList<>();
+        for (var element: getElementsByXpath(searchPhrase)) {
+//            System.out.println(searchPhrase);
+                searchText.add(element.getText());
+            System.out.println(element.getText());
+        }
+        return searchText;
     }
 }

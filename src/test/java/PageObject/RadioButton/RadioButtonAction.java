@@ -1,7 +1,7 @@
 package PageObject.RadioButton;
 
 import PageObject.PageObject;
-import PageObject.Locators;
+import PageObject.PageLocators;
 import org.openqa.selenium.WebDriver;
 
 
@@ -20,12 +20,12 @@ public class RadioButtonAction extends PageObject {
         getDriver().get("https://demoqa.com/radio-button");
     }
     public void waitClick(){
-        Locators.waitElementWithThisClassName(mainHeader);
+        PageLocators.waitElementWithThisClassName(mainHeader);
     }
     public void choose(String node){
-        Locators.getElementByCssSelector(node).click();
+        PageLocators.getElementByCssSelector(node).click();
     }
     public Boolean isEnabled(String node){
-        return Locators.getElementByCssSelector(node).isEnabled();
+        return PageLocators.getElementByCssSelector(node).isEnabled();
     }
 }

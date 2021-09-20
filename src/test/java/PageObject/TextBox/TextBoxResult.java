@@ -1,7 +1,7 @@
 package PageObject.TextBox;
 
 import PageObject.PageObject;
-import PageObject.Locators;
+import PageObject.PageLocators;
 import org.openqa.selenium.WebDriver;
 
 import java.util.List;
@@ -20,14 +20,14 @@ public class TextBoxResult extends PageObject {
     }
 
     public void waitSubmit(){
-        Locators.waitElementWithThisId(output);
+        PageLocators.waitElementWithThisId(output);
     }
 
 
     public List<String> getSubmitResult(){
-        return Locators.getListOfTextWithCssSelector(List.of(fullName, email, currentAddress, permanentAddress));
+        return PageLocators.getListOfTextWithCssSelector(List.of(fullName, email, currentAddress, permanentAddress));
     }
     public List<String> getPartialSubmitResult(){
-        return Locators.getListOfTextWithCssSelector(List.of(fullName, email));
+        return PageLocators.getListOfTextWithCssSelector(List.of(fullName, email));
     }
 }

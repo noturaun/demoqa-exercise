@@ -71,9 +71,9 @@ public class ModalFormTest {
 
         ModalFormResult results = new ModalFormResult(driver);
         System.out.println(results.getTextBoxWarning());
-        // FIXME: 9/16/21 Selenium could not get the same exact color. Need work around.
+        // FIXME: 9/16/21 Selenium could not get the same exact color. Need work around color because test sometime pass. Color should be rgb(220, 53, 69)
         Color warning = results.getTextBoxWarning();
-        assert warning.asRgb().equals("rgb(220, 53, 69");
+        assert warning.asRgb().equals("rgb(220, 53, 69)");
     }
 
     @Test
@@ -108,7 +108,6 @@ public class ModalFormTest {
         String resultFirsName = results.getRecordAt(1,1);
         System.out.println(resultFirsName);
         assert resultFirsName.equals("Michael");
-//        System.out.println(results.getRecordAt());
     }
 
     @Test
@@ -156,8 +155,7 @@ public class ModalFormTest {
 
         ModalFormResult results = new ModalFormResult(driver);
         results.waitLoad();
-        for (var name :
-                results.getBulkData()) {
+        for (var name : results.getBulkData()) {
             System.out.println(name);
             assertNotEquals(" ", name);
         }
@@ -211,6 +209,23 @@ public class ModalFormTest {
 //        results.waitLoad();
 //        page.jumpTo("1");
 //        assertEquals("1", results.jumpToResult());
+    }
+
+    @Test
+    void testSearch() {
+        String phrase = "39";
+        ModalFormAction page = new ModalFormAction(driver);
+        ModalFormResult results = new ModalFormResult(driver);
+
+        page.loadPage();
+        page.bulkInput(10);
+        page.enterSearchPhrase(phrase);
+
+        results.waitLoad();
+//        System.out.println(results.searchResult(phrase));
+        for (var record : results.searchResult(phrase)) {
+            assertTrue(record.contains(phrase));
+        }
     }
 
     @AfterEach
