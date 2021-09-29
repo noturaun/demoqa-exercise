@@ -2,27 +2,9 @@ package tests;
 
 import PageObject.RadioButton.RadioButtonResult;
 import PageObject.RadioButton.RadioButtonAction;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
 
-public class RadioButtonTest {
-    WebDriver driver;
-    WebDriverWait wait;
-
-    @BeforeAll
-    static void beforeAll() {
-        WebDriverManager.chromedriver().setup();
-    }
-
-    @BeforeEach
-    void setUp() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-    }
+public class RadioButtonTest extends SkeletonTest{
 
     @Test
     void testSelectYes() {
@@ -60,12 +42,5 @@ public class RadioButtonTest {
         RadioButtonResult result = new RadioButtonResult(driver);
         System.out.println(result.noRadioDisabled(RadioButtonAction.no));
         Assertions.assertEquals(false,selection.isEnabled(RadioButtonAction.no));
-    }
-
-    @AfterEach
-    void tearDown() {
-        if (driver != null){
-            driver.quit();
-        }
     }
 }

@@ -8,10 +8,11 @@ import org.openqa.selenium.WebDriver;
 import java.util.*;
 
 import static PageObject.PageActions.*;
+import static PageObject.PageLocators.getElementByCssSelector;
 import static PageObject.PageLocators.waitElementWithThisId;
 
 
-public class ModalFormAction extends PageObject {
+public class WebTableAction extends PageObject {
 
     /*
         Pass these strings as argument fo findNode() method
@@ -32,7 +33,7 @@ public class ModalFormAction extends PageObject {
     Faker faker = new Faker();
 
 
-    public ModalFormAction(WebDriver driver) {
+    public WebTableAction(WebDriver driver) {
         super(driver);
     }
 
@@ -122,6 +123,9 @@ public class ModalFormAction extends PageObject {
 
     public void jumpTo(String page){
         enterTextToThisFieldWithCssSelector("input[aria-label='jump to page']", page);
+    }
+
+    public void sendEnter(){
         enterKeysToThisFieldWithCssSelector("input[aria-label='jump to page']", Keys.ENTER);
     }
 

@@ -31,13 +31,15 @@ public class TextBoxAction extends PageObject {
         enterTextToThisFieldWithId(emailInput, email);
         enterTextToThisFieldWithId(currentAddressInput, currentAddress);
         enterTextToThisFieldWithId(permanentAddressInput, permanentAddress);
-        clickButtonWithThisId(submitButton);
     }
 
     public void inputPartial(String fullname, String email){
         waitElementWithThisClassName(mainHeader);
         enterTextToThisFieldWithId(fullNameInput, fullname);
         enterTextToThisFieldWithId(emailInput, email);
+    }
+
+    public void submit(){
         clickButtonWithThisId(submitButton);
     }
 

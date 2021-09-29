@@ -2,33 +2,14 @@ package tests;
 
 import PageObject.Checkbox.CheckBoxResult;
 import PageObject.Checkbox.CheckBoxAction;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.regex.Matcher;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CheckBoxTest {
-    WebDriver driver;
-    WebDriverWait wait;
-
-    @BeforeAll
-    static void beforeAll() {
-        WebDriverManager.chromedriver().setup();
-    }
-
-    @BeforeEach
-    void setUp() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-    }
-
+public class CheckBoxTest extends SkeletonTest{
     @Test
     void testExpandHomeFolder() {
         CheckBoxAction selection = new CheckBoxAction(driver);
@@ -37,6 +18,7 @@ public class CheckBoxTest {
         selection.expandHome();
 
         CheckBoxResult results = new CheckBoxResult(driver);
+//        results.expandHomeResult().forEach();
         for (var result :
                 results.expandHomeResult()) {
             System.out.println(result);
@@ -60,20 +42,21 @@ public class CheckBoxTest {
     }
 
     @Test
-    @Disabled
+//    @Disabled
     void collapseAll() {
         CheckBoxAction selection = new CheckBoxAction(driver);
+        CheckBoxResult results = new CheckBoxResult(driver);
+
         selection.loadPage();
         selection.waitClick();
         selection.expandAll();
+        results.collapseResult().forEach(Assertions::assertFalse);
         selection.collapseAll();
 
-        CheckBoxResult results = new CheckBoxResult(driver);
-        results.collapseResult();
-        for (var result: results.collapseResult()){
-            assertThrows(NoSuchElementException.class, () -> {
-            });
-        }
+//        for (var result: results.collapseResult()){
+//            assertThrows(NoSuchElementException.class, () -> {
+//            });
+//        }
     }
 
     @Test
@@ -104,20 +87,18 @@ public class CheckBoxTest {
 
         CheckBoxResult results = new CheckBoxResult(driver);
         results.selectAllResult().forEach((texts,checkeds) -> {
-            for (var checked :
-                    checkeds) {
-                assertEquals(true, checked);
-            }
-            for (int i = 0; i < texts.toArray().length; i++) {
-                assertEquals(strings.toArray()[i],texts.toArray()[i]);
-            }
+//            for (var checked :
+//                    checkeds) {
+//                assertEquals(true, checked);
+//            }
+            checkeds.forEach(Assertions::assertTrue);
+//            assertThat(checkeds, Matchers.contains(true));
+            assertArrayEquals(strings.toArray(), texts.toArray());
+//            for (int i = 0; i < texts.toArray().length; i++) {
+//                assertEquals(strings.toArray()[i],texts.toArray()[i]);
+//            }
         });
     }
 
-    @AfterEach
-    void tearDown() {
-        if (driver != null){
-            driver.quit();
-        }
-    }
+
 }

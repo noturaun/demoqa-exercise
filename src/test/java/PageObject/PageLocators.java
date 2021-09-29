@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class PageLocators extends PageObject{
     public PageLocators(WebDriver driver) {
@@ -117,6 +118,11 @@ public abstract class PageLocators extends PageObject{
         return getElementById(id).isSelected();
     }
 
+
+    public static Boolean isThisButtonWithSelectorIsSelected(String cssSelector){
+        return getElementByCssSelector(cssSelector).isSelected();
+    }
+
     public static Boolean isThisThisElementSelectorIsExist(String selector){
         return getElementByCssSelector(selector).isSelected();
     }
@@ -125,16 +131,17 @@ public abstract class PageLocators extends PageObject{
         return getElementByXpath(xpath).isSelected();
     }
 
-    public static String getColor(String selector, String prop){
-        return getElementByCssSelector(selector).getCssValue(prop);
+    public static String getColor(String selector, String attr){
+        return getElementByCssSelector(selector).getCssValue(attr);
     }
 
     public static Select getSelectElement(String selector){
         return new Select(getElementByCssSelector(selector));
     }
 
-    public static List<WebElement> getSelectedOption(String selector){
-        return getSelectElement(selector).getAllSelectedOptions();
+    public static List<String> getSelectedOption(String selector){
+        return getSelectElement(selector).getAllSelectedOptions()
+                .stream().map(e -> e.getText()).collect(Collectors.toList());
     }
 
     public static String getValueByClassName(String className){
@@ -152,4 +159,10 @@ public abstract class PageLocators extends PageObject{
     public static Boolean waitValueContains(String locator, String attribute, String value){
         return getWait().until(ExpectedConditions.attributeContains(By.id(locator), attribute, value));
     }
+
+    public static WebElement getTextLink(String text){
+        return getDriver().findElement(By.linkText(text));
+    }
+
+//    public static
 }

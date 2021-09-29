@@ -10,66 +10,72 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TextBoxTest {
-
-    WebDriver driver;
-    WebDriverWait wait;
-
-    @BeforeAll
-    static void beforeAll() {
-        WebDriverManager.chromedriver().setup();
-    }
-
-    @BeforeEach
-    void setUp() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-    }
+public class TextBoxTest extends SkeletonTest{
 
     @ParameterizedTest //74359025+noturaun@users.noreply.github.com
     @CsvSource(value = {"Muhammad Syahrul, noturaun@users.noreply.github.com, Bogor, Bogor"})
     void testSumbitFull(String fullName, String email, String currentAddress, String permanentAddress) {
         TextBoxAction input = new TextBoxAction(driver);
+        // Given : User is on TextBox section
         input.loadPage();
+        // When : User enters username as {string}, email as {string}, current address as {string}, and permanent address as {string}
         input.input(fullName, email, currentAddress, permanentAddress);
+
+        // And : User click on submit
+        input.submit();
 
         TextBoxResult results = new TextBoxResult(driver);
         results.waitSubmit();
-        results.getSubmitResult();
-        for (int idx = 0; idx < results.getSubmitResult().toArray().length; idx++) {
-            System.out.println();
 
-        assertEquals("Name:Muhammad Syahrul", results.getSubmitResult().toArray()[0]);
-        assertEquals("Email:noturaun@users.noreply.github.com", results.getSubmitResult().toArray()[1]);
-        assertEquals("Current Address :Bogor", results.getSubmitResult().toArray()[2]);
-        assertEquals("Permananet Address :Bogor", results.getSubmitResult().toArray()[3]);
-        }
+        List<String> params = List.of("Name:" + fullName, "Email:" + email, "Current Address :" + currentAddress, "Permananet Address :" + permanentAddress);
+        // Then : User should see the data they have entered
+        assertIterableEquals(params, results.getSubmitResult());
     }
 
     @ParameterizedTest
     @CsvSource(value = {"Muhammad Syahrul, noturaun@users.noreply.github.com"})
     void testPartialSubmit(String fullName, String email) {
         TextBoxAction input = new TextBoxAction(driver);
+        // Given : User is on TextBox section
         input.loadPage();
+        // When : User enters username as {string}, email as {string}
         input.inputPartial(fullName, email);
+        // And : User click on submit
+        input.submit();
 
+        List<String> params = List.of("Name:" + fullName, "Email:" + email);
         TextBoxResult results = new TextBoxResult(driver);
         results.waitSubmit();
-        results.getPartialSubmitResult();
-        for (int idx = 0; idx < results.getPartialSubmitResult().toArray().length; idx++) {
-            System.out.println();
+        // Then : User should see the data they have entered
+        assertIterableEquals(params, results.getPartialSubmitResult());
 
-            assertEquals("Name:Muhammad Syahrul", results.getPartialSubmitResult().toArray()[0]);
-            assertEquals("Email:noturaun@mail.com", results.getPartialSubmitResult().toArray()[1]);
-        }
+    }
 
+    @ParameterizedTest
+    @CsvSource(value = {"Muhammad Syahrul, x"})
+    void testInvalidEmailInput(String fullName, String email) {
+        TextBoxAction input = new TextBoxAction(driver);
+        // Given : User is on TextBox section
+        input.loadPage();
+        // When : User enters username as {string}, email as {string}
+        input.inputPartial(fullName, email);
+        // And : User click on submit
+        input.submit();
+
+        TextBoxResult results = new TextBoxResult(driver);
+//        results.waitSubmit();
+        Color warning = results.getWarning();
+//        assertEquals(warning.);
+        System.out.println(warning);
     }
 
     @Disabled
@@ -83,12 +89,5 @@ public class TextBoxTest {
         String currentAddress = resutl.getTagName();
 
         System.out.println(currentAddress);
-    }
-
-    @AfterEach
-    void tearDown() {
-        if (driver != null){
-            driver.quit();
-        }
     }
 }

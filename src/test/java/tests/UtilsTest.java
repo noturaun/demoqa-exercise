@@ -1,6 +1,4 @@
 package tests;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -10,6 +8,8 @@ import java.util.Map;
 import com.github.javafaker.Faker;
 
 
+import static Utils.CodingTest.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UtilsTest {
@@ -43,5 +43,31 @@ public class UtilsTest {
         for (var data : dataList) {
             System.out.println(data);
         }
+    }
+
+    @Test
+    void testBus() {
+        int[] familyMembers = new int[]{1,2,4,3,4};
+        System.out.println(howManyBus(5,familyMembers));
+    }
+
+
+    @Test
+    void testPalindrom() {
+        assertTrue(isPalindrom("a"));
+        assertTrue(isPalindrom("aba"));
+        assertTrue(isPalindrom("kodok"));
+        assertTrue(isPalindrom(""));
+        assertTrue(isPalindrom("abababa"));
+
+        assertFalse(isPalindrom("abc"));
+        assertFalse(isPalindrom("abbb"));
+        assertFalse(isPalindrom("tahu"));
+//        isPalindrom("aba");
+    }
+
+    @Test
+    void testFizzBuzz() {
+        fizzBuzz(25);
     }
 }

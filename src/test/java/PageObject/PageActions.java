@@ -36,6 +36,7 @@ public abstract class PageActions extends PageObject{
     }
 
     public static void enterTextToThisFieldWithCssSelector(String cssSelector, String phrase){
+        getElementByCssSelector(cssSelector).clear();
         getElementByCssSelector(cssSelector).sendKeys(phrase);
     }
 
@@ -79,5 +80,9 @@ public abstract class PageActions extends PageObject{
                 throw new NoSuchElementException(selector);
             }
         }
+    }
+
+    public static void clickLink(String text){
+        getTextLink(text).click();
     }
 }

@@ -2,8 +2,10 @@ package PageObject.WebTable;
 
 import PageObject.PageObject;
 import PageObject.PageLocators;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.Color;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,7 +15,7 @@ import java.util.regex.Pattern;
 
 import static PageObject.PageLocators.*;
 
-public class ModalFormResult extends PageObject {
+public class WebTableResult extends PageObject {
 
 
     public static final String formHeader = "registration-form-modal";
@@ -34,16 +36,19 @@ public class ModalFormResult extends PageObject {
     public static final String selectOpt = "select[aria-label='rows per page']";
     public static final String tableData = "//div[./div[contains(text(),\"%s\")]]";
     public static final String searchBoxId = "searchBox";
+    public static final String tablePage = "inpuy[aria-label=\"jump to page\"]";
 
 
 
-    public ModalFormResult(WebDriver driver) {
+    public WebTableResult(WebDriver driver) {
         super(driver);
     }
 
     public void waitLoad(){
         PageLocators.waitElementWithThisClassName(tableBody);
     }
+
+    public void waitTabelPageChange(String page){ getWait().until(ExpectedConditions.textToBe(By.cssSelector(tablePage), page)); }
 
     public void waitWarning(){
         PageLocators.waitElementWithThisId(".was-validated .form-control:invalid");
@@ -66,7 +71,7 @@ public class ModalFormResult extends PageObject {
 
     // FIXME: 9/16/21 Selenium could not get the same exact color. Need work around.
     public Color getTextBoxWarning(){
-         return Color.fromString(PageLocators.getColor(".was-validated .form-control:invalid", "border-color"));
+         return Color.fromString(PageLocators.getColor("input[id='userEmail']", "border-color"));
 //        return Color.fromString(Locators.getColor("input#userEmail", "border-top-color"));
     }
 
