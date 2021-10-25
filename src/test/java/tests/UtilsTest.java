@@ -1,16 +1,13 @@
 package tests;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import com.github.javafaker.Faker;
 
 
 import static Utils.CodingTest.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UtilsTest {
     Faker faker = new Faker();
@@ -69,5 +66,59 @@ public class UtilsTest {
     @Test
     void testFizzBuzz() {
         fizzBuzz(25);
+    }
+
+    @Test
+    void testTwoSum() {
+        int[] arr = {1, 4, 5};
+        int[] arr1 = {7,6,8,3,4,5};
+        twoSum(arr, 5);
+
+        assertArrayEquals(new int[] {0,2}, twoSum(arr1,15));
+    }
+
+    @Test
+    void testPalindromeNum() {
+        assertTrue(palindromeNum(122221));
+    }
+
+    @Test
+    void testRomanToInt() {
+        assertEquals(2020, romanToInt("MMXX"));
+    }
+
+    @Test
+    void testInput() {
+        var input = new Scanner(System.in);
+        var q = input.nextLine();
+        System.out.println(q);
+    }
+
+    @Test
+    void testLongestCommonPrefix() {
+        String[] input = {"test", "teseract", "tersier", "terima"};
+        assertEquals("te", longestCommonPrefix(input));
+    }
+
+    @Test
+    void testSearchInsert() {
+        int[] nums = {1,3,4,5,6};
+        int x = searchInsert(nums, 2);
+        System.out.println(nums.length);
+        System.out.println(x);
+        String p = "AGRAGAWEGWE ggweg";
+        p.trim().toLowerCase();
+        System.out.println(p);
+    }
+
+
+    @Test
+    void testVaccinationCode() {
+        checkVaccine("ACH100138215");
+    }
+
+    @Test
+    void testprintFirst() {
+        printFirst("Sample Case");
     }
 }

@@ -174,6 +174,7 @@ public class WebTableTest extends SkeletonTest{
     }
 
     @Test
+    @Disabled
     void testJumpTo() {
         WebTableAction page = new WebTableAction(driver);
         WebTableResult results = new WebTableResult(driver);
